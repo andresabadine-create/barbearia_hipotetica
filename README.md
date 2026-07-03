@@ -100,8 +100,14 @@ que encaminha `/api` para o backend (8081), evitando problemas de CORS.
 | GET | `/api/notifications/unread-count` | JWT | Quantidade de notificações não lidas |
 | PATCH | `/api/notifications/{id}/read` | JWT | Marca uma notificação como lida |
 | PATCH | `/api/notifications/read-all` | JWT | Marca todas as notificações como lidas |
+| GET | `/api/admin/users` | ADMIN | Lista todos os cadastros |
+| POST | `/api/admin/avisos` | ADMIN | Envia um aviso (notificação 📢) aos destinatários escolhidos |
+| GET | `/api/admin/appointments` | ADMIN | Agendamentos vencidos aguardando confirmação de conclusão |
+| POST | `/api/admin/appointments/{id}/concluir` | ADMIN | Confirma que o atendimento aconteceu (habilita a fidelidade) |
 
 Respostas de erro seguem o formato `{ status, error, message, timestamp }`.
+As rotas `/api/admin/**` exigem um usuário com papel **ADMIN** (o JWT carrega o
+papel como claim `role`).
 
 ### Exemplo rápido (curl)
 
@@ -142,15 +148,17 @@ cd backend
 - ✅ **Fase 1 — Plano de fidelidade** (cartão "a cada 10 cortes, 1 grátis").
 - ✅ **Fase 2 — Notificações** in-app (sino + lista) e telefone no cadastro para
   envio via WhatsApp.
-- ⬜ **Fase 3 — Painel administrativo** (papel `ADMIN` via seed, gestão de
-  cadastros e avisos).
+- ✅ **Fase 3 — Painel administrativo** (papel `ADMIN` via seed, gestão de
+  cadastros, avisos e confirmação de atendimentos).
 
 ### Fidelidade (Fase 1)
 
-Cada corte concluído (agendamento cujo horário já passou e não foi cancelado)
-avança o cartão do cliente. Ao completar **10 cortes**, ele ganha **1 corte
-grátis**, resgatável na tela "Fidelidade". O progresso é derivado dos próprios
-agendamentos; só o número de recompensas já resgatadas é persistido.
+Cada **corte concluído** avança o cartão do cliente. Um corte só conta como
+concluído depois que o dono da barbearia (admin) **confirma o atendimento no
+painel** (status `CONCLUIDO`) — não basta o horário passar. Ao completar **10
+cortes**, o cliente ganha **1 corte grátis**, resgatável na tela "Fidelidade".
+O progresso é derivado dos próprios agendamentos; só o número de recompensas já
+resgatadas é persistido.
 
 ### Notificações (Fase 2)
 
@@ -161,3 +169,28 @@ a mesma mensagem via WhatsApp: o envio externo é abstraído por
 `NotificationChannel`, hoje implementado por `LogNotificationChannel` (só
 registra em log). Para ativar o WhatsApp de verdade, basta adicionar uma
 implementação (Twilio / WhatsApp Business API) e marcá-la como `@Primary`.
+
+### Painel administrativo (Fase 3)
+
+O `User` ganhou um papel (`role`: `USER` ou `ADMIN`), embarcado como claim `role`
+no JWT. O `SecurityConfig` restringe as rotas `/api/admin/**` a `hasRole("ADMIN")`;
+tokens antigos sem o claim caem em `USER`. Um administrador inicial é semeado pela
+migration `V4__admin.sql`:
+
+> **Credenciais padrão:** `admin@barbearia.com` / `admin12345` —
+> **troque em produção.**
+
+No frontend, o link **"Admin"** aparece na topbar apenas quando `auth.isAdmin()`,
+e a rota `/admin` é protegida por um guard. A tela **Admin** reúne:
+
+- **Gestão de cadastros** — lista todos os usuários (nome, e-mail, telefone, papel).
+- **Avisos** — seleção de destinatários + textarea; envia uma notificação com
+  prefixo 📢 aos clientes escolhidos (reutiliza o canal de notificações da Fase 2).
+- **Confirmar atendimentos** — fila de agendamentos ativos cujo horário já passou;
+  ao confirmar, o agendamento vira `CONCLUIDO`, o cliente é notificado e o corte
+  passa a contar no cartão fidelidade (ver [Fidelidade](#fidelidade-fase-1)).
+
+Nesta fase o **telefone** passou a ser obrigatório também no banco (`NOT NULL`,
+migration `V5`), e o backfill dessa mesma migration marcou como `CONCLUIDO` os
+agendamentos passados já em aberto, preservando o progresso de fidelidade
+acumulado.

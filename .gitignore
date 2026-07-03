@@ -1,0 +1,27 @@
+# ===== Backend (Java / Maven) =====
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+!backend/.mvn/wrapper/maven-wrapper.properties
+*.class
+*.log
+hs_err_pid*
+
+# ===== Frontend (Angular / Node) =====
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/npm-debug.log*
+
+# ===== IDE / OS =====
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# ===== Env / secrets =====
+*.env
+.env.local
+
+# ===== Notas de estudo (uso pessoal, não versionar) =====
+RACIOCINIO-ESTUDO.md

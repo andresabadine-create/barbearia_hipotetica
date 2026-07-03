@@ -1,0 +1,55 @@
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>Cartão fidelidade</h1>
+      <p class="muted">
+        A cada 10 cortes, o próximo é por nossa conta. 💈 Cada corte entra no cartão
+        após a barbearia confirmar o atendimento.
+      </p>
+    </div>
+    <a routerLink="/appointments" class="btn ghost">Voltar</a>
+  </header>
+
+  @if (error()) {
+    <p class="alert" role="alert">{{ error() }}</p>
+  }
+
+  @if (loading()) {
+    <p class="muted">Carregando…</p>
+  } @else if (card(); as c) {
+    <div class="card loyalty-card">
+      <div class="loyalty-progress">
+        <span class="loyalty-count">{{ c.carimbos }}/{{ c.meta }}</span>
+        <span class="muted">cortes rumo ao próximo grátis</span>
+      </div>
+
+      <div class="stamp-grid" aria-hidden="true">
+        @for (filled of stamps(); track $index) {
+          <span class="stamp" [class.filled]="filled">✂</span>
+        }
+      </div>
+
+      @if (c.recompensasDisponiveis > 0) {
+        <div class="loyalty-reward">
+          <p>
+            🎉 Você tem <strong>{{ c.recompensasDisponiveis }}</strong>
+            corte(s) grátis disponível(is)!
+          </p>
+          <button type="button" class="btn primary" [disabled]="redeeming()" (click)="redeem()">
+            {{ redeeming() ? 'Resgatando…' : 'Resgatar corte grátis' }}
+          </button>
+        </div>
+      } @else {
+        <p class="muted loyalty-hint">
+          Faltam {{ c.meta - c.carimbos }} corte(s) para você ganhar um grátis.
+        </p>
+      }
+
+      @if (message()) {
+        <p class="success" role="status">{{ message() }}</p>
+      }
+
+      <p class="muted loyalty-total">Total de cortes concluídos: {{ c.cortesConcluidos }}</p>
+    </div>
+  }
+</section>

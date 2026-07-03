@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: barbearia_postgres
+    environment:
+      POSTGRES_DB: barbearia
+      POSTGRES_USER: barbearia
+      POSTGRES_PASSWORD: barbearia
+    # Host 5433 → container 5432, evitando conflito com um PostgreSQL local
+    # (ex.: EnterpriseDB) que já ocupa a 5432.
+    ports:
+      - "5433:5432"
+    volumes:
+      - barbearia_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U barbearia -d barbearia"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  barbearia_pgdata:

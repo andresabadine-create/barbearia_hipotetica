@@ -1,0 +1,123 @@
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>Painel administrativo</h1>
+      <p class="muted">Gerencie os cadastros e envie avisos aos clientes.</p>
+    </div>
+    <a routerLink="/appointments" class="btn ghost">Voltar</a>
+  </header>
+
+  @if (error()) {
+    <p class="alert" role="alert">{{ error() }}</p>
+  }
+
+  @if (loading()) {
+    <p class="muted">Carregando…</p>
+  } @else {
+    <div class="card admin-aviso">
+      <h2>Enviar aviso</h2>
+      <p class="muted">
+        Selecione os destinatários na lista abaixo e escreva a mensagem — ela chega
+        como notificação para cada cliente.
+      </p>
+
+      <label>
+        Mensagem
+        <textarea
+          rows="3"
+          placeholder="Ex.: Estaremos fechados neste feriado."
+          [value]="mensagem()"
+          (input)="updateMensagem($any($event.target).value)"></textarea>
+      </label>
+
+      @if (sendError()) {
+        <p class="alert" role="alert">{{ sendError() }}</p>
+      }
+      @if (success()) {
+        <p class="success" role="status">{{ success() }}</p>
+      }
+
+      <div class="admin-aviso-actions">
+        <span class="muted">{{ selectedCount() }} destinatário(s) selecionado(s)</span>
+        <button
+          type="button"
+          class="btn primary"
+          [disabled]="!canSend() || sending()"
+          (click)="send()">
+          {{ sending() ? 'Enviando…' : 'Enviar aviso' }}
+        </button>
+      </div>
+    </div>
+
+    <div class="admin-users-header">
+      <h2>Confirmar atendimentos</h2>
+    </div>
+    <p class="muted admin-section-hint">
+      Agendamentos cujo horário já passou. Confirme os que aconteceram — só então o
+      corte entra no cartão fidelidade do cliente.
+    </p>
+
+    @if (pendingError()) {
+      <p class="alert" role="alert">{{ pendingError() }}</p>
+    }
+
+    @if (pending().length === 0) {
+      <div class="card empty">
+        <p>Nenhum atendimento aguardando confirmação.</p>
+      </div>
+    } @else {
+      <ul class="admin-pending-list">
+        @for (a of pending(); track a.id) {
+          <li class="card admin-pending">
+            <div class="admin-pending-info">
+              <span class="admin-pending-name">{{ a.clienteNome }}</span>
+              <span class="muted">{{ formatData(a.data) }} às {{ formatHora(a.hora) }}</span>
+            </div>
+            <button
+              type="button"
+              class="btn primary"
+              [disabled]="concludingId() === a.id"
+              (click)="conclude(a)">
+              {{ concludingId() === a.id ? 'Concluindo…' : 'Concluir' }}
+            </button>
+          </li>
+        }
+      </ul>
+    }
+
+    <div class="admin-users-header">
+      <h2>Cadastros ({{ users().length }})</h2>
+      @if (users().length > 0) {
+        <button type="button" class="btn ghost" (click)="toggleAll()">
+          {{ allSelected() ? 'Limpar seleção' : 'Selecionar todos' }}
+        </button>
+      }
+    </div>
+
+    @if (users().length === 0) {
+      <div class="card empty">
+        <p>Nenhum cadastro por enquanto.</p>
+      </div>
+    } @else {
+      <ul class="admin-user-list">
+        @for (u of users(); track u.id) {
+          <li class="card admin-user" [class.selected]="isSelected(u.id)">
+            <label class="admin-user-row">
+              <input type="checkbox" [checked]="isSelected(u.id)" (change)="toggle(u.id)" />
+              <div class="admin-user-info">
+                <span class="admin-user-name">
+                  {{ u.nome }}
+                  @if (u.role === 'ADMIN') {
+                    <span class="badge badge-admin">Admin</span>
+                  }
+                </span>
+                <span class="muted">{{ u.email }}</span>
+                <span class="muted">{{ u.telefone || 'Sem telefone' }}</span>
+              </div>
+            </label>
+          </li>
+        }
+      </ul>
+    }
+  }
+</section>

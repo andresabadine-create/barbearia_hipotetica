@@ -1,0 +1,119 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.5rem;
+  background: #1f2933;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.brand {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 0.2px;
+}
+
+.topbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.topbar-nav .greeting {
+  color: #cbd2d9;
+  font-size: 0.95rem;
+  margin-left: 0.5rem;
+}
+
+.topbar-link {
+  color: #cbd2d9;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.3rem 0.1rem;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.topbar-link:hover {
+  color: #fff;
+}
+
+.topbar-link.active {
+  color: #fff;
+  border-bottom-color: var(--primary);
+}
+
+/* Sino de notificações com contador. */
+.bell {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.bell-badge {
+  position: absolute;
+  top: -4px;
+  right: -9px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--danger);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .topbar-link {
+    font-size: 0.9rem;
+  }
+}
+
+/* Botão de sair: precisa de contraste próprio sobre a topbar escura. */
+.logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+}
+
+.logout:hover {
+  background: var(--danger);
+  border-color: var(--danger);
+}
+
+.logout:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+}
+
+.logout:active {
+  transform: translateY(1px);
+}
+
+.logout-icon {
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .topbar-nav .greeting {
+    display: none;
+  }
+}

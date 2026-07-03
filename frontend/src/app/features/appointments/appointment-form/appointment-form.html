@@ -1,0 +1,49 @@
+<section class="card auth-card">
+  <h1>Novo agendamento</h1>
+  <p class="muted">Escolha a data e o horário desejados.</p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <label>
+      Data
+      <input type="date" formControlName="data" [min]="today" />
+    </label>
+    @if (form.controls.data.touched && form.controls.data.invalid) {
+      <small class="field-error">Selecione uma data.</small>
+    }
+
+    <fieldset class="slots-field">
+      <legend>Horário</legend>
+      <p class="muted slots-hint">
+        Atendimentos de 30 em 30 minutos, das 08:00 às 20:00.
+      </p>
+      <div class="slot-grid" role="radiogroup" aria-label="Horários disponíveis">
+        @for (slot of slots; track slot) {
+          <button
+            type="button"
+            class="slot"
+            role="radio"
+            [class.selected]="selectedHora === slot"
+            [attr.aria-checked]="selectedHora === slot"
+            [disabled]="isSlotDisabled(slot)"
+            (click)="selectHora(slot)">
+            {{ slot }}
+          </button>
+        }
+      </div>
+    </fieldset>
+    @if (form.controls.hora.touched && form.controls.hora.invalid) {
+      <small class="field-error">Selecione um horário.</small>
+    }
+
+    @if (error()) {
+      <p class="alert" role="alert">{{ error() }}</p>
+    }
+
+    <div class="form-actions">
+      <a routerLink="/appointments" class="btn ghost">Voltar</a>
+      <button type="submit" class="btn primary" [disabled]="loading()">
+        {{ loading() ? 'Agendando…' : 'Agendar' }}
+      </button>
+    </div>
+  </form>
+</section>

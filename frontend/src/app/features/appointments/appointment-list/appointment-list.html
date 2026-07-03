@@ -1,0 +1,50 @@
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>Meus agendamentos</h1>
+      <p class="muted">Acompanhe e gerencie seus horários na barbearia.</p>
+    </div>
+    <a routerLink="/appointments/new" class="btn primary">+ Novo agendamento</a>
+  </header>
+
+  @if (error()) {
+    <p class="alert" role="alert">{{ error() }}</p>
+  }
+
+  @if (loading()) {
+    <p class="muted">Carregando…</p>
+  } @else if (appointments().length === 0) {
+    <div class="card empty">
+      <p>Você ainda não tem agendamentos.</p>
+      <a routerLink="/appointments/new" class="btn primary">Agendar meu primeiro horário</a>
+    </div>
+  } @else {
+    <ul class="appointment-list">
+      @for (a of appointments(); track a.id) {
+        <li class="card appointment">
+          <div class="appointment-info">
+            <span class="date">{{ formatData(a.data) }}</span>
+            <span class="time">{{ formatHora(a.hora) }}</span>
+          </div>
+          <div class="appointment-actions">
+            <span
+              class="badge"
+              [class.badge-cancelled]="a.status === 'CANCELADO'"
+              [class.badge-done]="a.status === 'CONCLUIDO'">
+              {{ statusLabel(a.status) }}
+            </span>
+            @if (a.status === 'AGENDADO') {
+              <button
+                type="button"
+                class="btn danger"
+                (click)="cancel(a)"
+                [disabled]="cancelingId() === a.id">
+                {{ cancelingId() === a.id ? 'Cancelando…' : 'Cancelar' }}
+              </button>
+            }
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</section>

@@ -1,0 +1,42 @@
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1>Notificações</h1>
+      <p class="muted">Avisos sobre seus agendamentos.</p>
+    </div>
+    <div class="page-header-actions">
+      @if (hasUnread()) {
+        <button type="button" class="btn ghost" (click)="markAllRead()">
+          Marcar todas como lidas
+        </button>
+      }
+      <a routerLink="/appointments" class="btn ghost">Voltar</a>
+    </div>
+  </header>
+
+  @if (error()) {
+    <p class="alert" role="alert">{{ error() }}</p>
+  }
+
+  @if (loading()) {
+    <p class="muted">Carregando…</p>
+  } @else if (items().length === 0) {
+    <div class="card empty">
+      <p>Você não tem notificações por enquanto.</p>
+    </div>
+  } @else {
+    <ul class="notification-list">
+      @for (n of items(); track n.id) {
+        <li class="card notification" [class.unread]="!n.lida" (click)="markRead(n)">
+          <div class="notification-body">
+            <p class="notification-message">{{ n.mensagem }}</p>
+            <span class="muted notification-time">{{ formatDateTime(n.createdAt) }}</span>
+          </div>
+          @if (!n.lida) {
+            <span class="unread-dot" aria-label="Não lida"></span>
+          }
+        </li>
+      }
+    </ul>
+  }
+</section>

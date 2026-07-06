@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://barbearia-api.onrender.com/api/:path*"
+      "destination": "https://barbearia-api-13wx.onrender.com"
     },
     {
       "source": "/(.*)",

@@ -196,13 +196,3 @@ Construído em fases, cada uma agregando uma capacidade de negócio completa:
   avisos e confirmação de atendimentos.
 
 ---
-
-## Autor
-
-**André Augusto Sabadine Domingues** — desenvolvedor em formação, focado em
-back-end Java/Spring e full-stack.
-
-- LinkedIn: _[adicione seu link]_
-- GitHub: _[adicione seu link]_
-
-> Feedback é muito bem-vindo — este projeto é parte do meu aprendizado contínuo.

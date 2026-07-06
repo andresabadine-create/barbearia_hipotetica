@@ -82,10 +82,6 @@ barbearia_hipotetica/
 ```
 Navegador → Angular (Vercel) ──/api/*──▶ Spring Boot (Render, Docker) ──▶ PostgreSQL (Neon)
 ```
-
-O frontend na Vercel faz _proxy_ de `/api/*` para o backend, então o navegador vê
-tudo na **mesma origem**. Passo a passo completo em **[DEPLOY.md](DEPLOY.md)**.
-
 ---
 
 ## Stack

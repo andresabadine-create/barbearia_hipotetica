@@ -1,4 +1,4 @@
-# 💈 Barbearia Hipotética — Sistema de Agendamentos
+# Barbearia Hipotética — Sistema de Agendamentos
 
 Aplicação web **full-stack** onde o cliente se cadastra, faz login e gerencia
 seus agendamentos em uma barbearia. Inclui **plano de fidelidade**,
@@ -11,45 +11,45 @@ seus agendamentos em uma barbearia. Inclui **plano de fidelidade**,
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
 ![JWT](https://img.shields.io/badge/Auth-JWT-000000?logo=jsonwebtokens&logoColor=white)
 
-> 🎯 **Projeto de portfólio.** Construí este sistema para praticar, de ponta a
-> ponta, os fundamentos de uma aplicação full-stack real: autenticação, regras de
+> **Projeto de portfólio.** Construí este sistema para praticar, de ponta a ponta,
+> os fundamentos de uma aplicação full-stack real: autenticação, regras de
 > negócio, banco relacional com migrações, testes e deploy em nuvem. É um MVP
 > deliberadamente enxuto no escopo, mas cuidadoso na engenharia.
 
 ---
 
-## 🔗 Demo ao vivo
+## Demo ao vivo
 
-**👉 [barbearia-hipotetica.vercel.app](https://barbearia-hipotetica.vercel.app)**
+**[barbearia-hipotetica.vercel.app](https://barbearia-hipotetica.vercel.app)**
 
 Você pode **criar sua própria conta** ou entrar com o administrador de demonstração:
 
 | Perfil | E-mail | Senha |
 |---|---|---|
-| 👑 Admin | `admin@barbearia.com` | `admin12345` |
+| Admin | `admin@barbearia.com` | `Barbearia@Admin2026` |
 
-> ⏳ **Primeiro acesso pode levar ~30–50s.** O backend roda em _free tier_ e
-> hiberna quando fica ocioso; a primeira requisição o "acorda". As seguintes são
+> **Primeiro acesso pode levar ~30–50s.** O backend roda em _free tier_ e hiberna
+> quando fica ocioso; a primeira requisição o "acorda". As seguintes são
 > instantâneas.
 
 ---
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 **Cliente**
-- 🔐 Cadastro e login com autenticação **JWT**
-- 📅 Criar, listar e cancelar os próprios agendamentos
-- 🎟️ **Cartão fidelidade** — a cada 10 cortes concluídos, 1 corte grátis
-- 🔔 **Notificações** in-app (sino com contador de não lidas)
+- Cadastro e login com autenticação **JWT**
+- Criar, listar e cancelar os próprios agendamentos
+- **Cartão fidelidade** — a cada 10 cortes concluídos, 1 corte grátis
+- **Notificações** in-app (sino com contador de não lidas)
 
 **Administrador**
-- 👥 Gestão de todos os cadastros
-- 📢 Envio de avisos para clientes selecionados
-- ✅ Confirmação de atendimentos (o que habilita a fidelidade)
+- Gestão de todos os cadastros
+- Envio de avisos para clientes selecionados
+- Confirmação de atendimentos (o que habilita a fidelidade)
 
 ---
 
-## 🧠 Regras de negócio
+## Regras de negócio
 
 O foco do projeto está no **domínio**, não só na tela. As regras são garantidas
 no backend:
@@ -64,7 +64,7 @@ no backend:
 
 ---
 
-## 🏗️ Arquitetura
+## Arquitetura
 
 Monorepo com backend, frontend e infraestrutura de banco separados:
 
@@ -88,7 +88,7 @@ tudo na **mesma origem**. Passo a passo completo em **[DEPLOY.md](DEPLOY.md)**.
 
 ---
 
-## 🛠️ Stack
+## Stack
 
 | Camada | Tecnologias |
 |---|---|
@@ -100,7 +100,7 @@ tudo na **mesma origem**. Passo a passo completo em **[DEPLOY.md](DEPLOY.md)**.
 
 ---
 
-## 💡 Destaques técnicos
+## Destaques técnicos
 
 Decisões que pratiquei conscientemente ao construir o projeto:
 
@@ -108,7 +108,7 @@ Decisões que pratiquei conscientemente ao construir o projeto:
   (`USER`/`ADMIN`) viaja como _claim_ no token e controla o acesso às rotas.
 - **Autorização por papel** — rotas `/api/admin/**` restritas via
   `hasRole("ADMIN")` no Spring Security.
-- **Migrações com Flyway** — o schema é versionado (`V1`…`V5`) e criado
+- **Migrações com Flyway** — o schema é versionado (`V1`…`V6`) e criado
   automaticamente no primeiro boot; o banco nunca é montado "na mão".
 - **Arquitetura em camadas** — Controller → Service → Repository, com regras de
   negócio isoladas na camada de serviço e cobertas por testes unitários.
@@ -128,7 +128,7 @@ Decisões que pratiquei conscientemente ao construir o projeto:
 
 ---
 
-## 📡 API REST
+## API REST
 
 | Método | Rota | Auth | Descrição |
 |---|---|---|---|
@@ -152,7 +152,7 @@ Erros seguem um formato consistente: `{ status, error, message, timestamp }`.
 
 ---
 
-## ▶️ Como rodar localmente
+## Como rodar localmente
 
 **Pré-requisitos:** Java 21, Node.js 20+, Docker.
 
@@ -176,7 +176,7 @@ o admin. O dev server usa um _proxy_ que encaminha `/api` para o backend (sem CO
 > As portas (8081 / 5433 / 4200) foram escolhidas para não conflitar com serviços
 > comuns (8080 / 5432) e são todas configuráveis por variável de ambiente.
 
-### 🧪 Testes
+### Testes
 
 Regras de negócio cobertas por testes unitários (rodam em H2, sem Docker):
 
@@ -187,26 +187,26 @@ cd backend
 
 ---
 
-## 🗺️ Evolução do projeto
+## Evolução do projeto
 
 Construído em fases, cada uma agregando uma capacidade de negócio completa:
 
-- ✅ **MVP** — cadastro, login (JWT) e o ciclo de agendamentos.
-- ✅ **Fase 1 — Fidelidade** — cartão "a cada 10 cortes, 1 grátis", com progresso
+- **MVP** — cadastro, login (JWT) e o ciclo de agendamentos.
+- **Fase 1 — Fidelidade** — cartão "a cada 10 cortes, 1 grátis", com progresso
   derivado dos agendamentos concluídos.
-- ✅ **Fase 2 — Notificações** — eventos de agendamento geram notificação in-app;
+- **Fase 2 — Notificações** — eventos de agendamento geram notificação in-app;
   canal de envio abstraído para futura integração com WhatsApp.
-- ✅ **Fase 3 — Painel administrativo** — papel `ADMIN`, gestão de cadastros,
+- **Fase 3 — Painel administrativo** — papel `ADMIN`, gestão de cadastros,
   avisos e confirmação de atendimentos.
 
 ---
 
-## 👤 Autor
+## Autor
 
 **André Augusto Sabadine Domingues** — desenvolvedor em formação, focado em
 back-end Java/Spring e full-stack.
 
-- 💼 LinkedIn: _[adicione seu link]_
-- 🐙 GitHub: _[adicione seu link]_
+- LinkedIn: _[adicione seu link]_
+- GitHub: _[adicione seu link]_
 
 > Feedback é muito bem-vindo — este projeto é parte do meu aprendizado contínuo.

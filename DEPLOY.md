@@ -126,8 +126,9 @@ Abra a URL da Vercel e:
 - **Cadastre-se** (nome, e-mail, senha, telefone) e crie/cancele agendamentos.
 - **Entre como admin** para ver o painel administrativo:
 
-  > **Admin padrão:** `admin@barbearia.com` / `admin12345`
-  > (semeado pela migração `V4`). Para um demo público, **troque essa senha**.
+  > **Admin do demo:** `admin@barbearia.com` / `Barbearia@Admin2026`
+  > (semeado pela `V4`, senha definida pela `V6`). Como fica documentada aqui,
+  > troque-a caso queira restringir de fato o acesso ao painel.
 
 ---
 

@@ -20,9 +20,9 @@ spring:
     locations: classpath:db/migration
 
 server:
-  # 8080 costuma estar ocupada por outros serviços (ex.: Apache do EnterpriseDB),
-  # então a API sobe na 8081.
-  port: ${SERVER_PORT:8081}
+  # Em produção (ex.: Render) a porta chega pela variável PORT.
+  # Localmente, SERVER_PORT ou o default 8081 (8080 costuma estar ocupada).
+  port: ${PORT:${SERVER_PORT:8081}}
 
 app:
   jwt:
@@ -30,3 +30,7 @@ app:
     secret: ${JWT_SECRET:dev-secret-troque-em-producao-0123456789-0123456789}
     # Validade do token em milissegundos (24h).
     expiration: ${JWT_EXPIRATION:86400000}
+  cors:
+    # Origens permitidas (CORS), separadas por vírgula. Em produção defina
+    # CORS_ORIGINS com a URL do frontend na Vercel (ex.: https://barbearia.vercel.app).
+    allowed-origins: ${CORS_ORIGINS:http://localhost:4200}

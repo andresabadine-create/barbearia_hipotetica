@@ -143,6 +143,27 @@ cd backend
 
 ---
 
+## Deploy (demo online)
+
+Para expor o projeto (ex.: a recrutadores), há um guia completo em
+**[DEPLOY.md](DEPLOY.md)**. Arquitetura, tudo em _free tier_:
+
+```
+Angular (Vercel)  ──/api/*──▶  Spring Boot (Render, Docker)  ──▶  PostgreSQL (Neon)
+```
+
+- **Frontend** na **Vercel** — `frontend/vercel.json` faz o build e um _rewrite_
+  de `/api/*` para o backend (mesmo origem no navegador, sem CORS).
+- **Backend** na **Render** via **Docker** (`backend/Dockerfile`) — Blueprint
+  pronto em [`render.yaml`](render.yaml).
+- **Banco** no **Neon** (PostgreSQL gerenciado); o Flyway cria o schema no 1º boot.
+- Variáveis de ambiente documentadas em [`.env.example`](.env.example).
+
+> **Nota:** no free tier o backend hiberna após ~15 min; o 1º acesso tem cold
+> start de ~30–50s. O DEPLOY.md mostra um _keep-alive_ para evitar isso.
+
+---
+
 ## Roadmap das fases futuras
 
 - ✅ **Fase 1 — Plano de fidelidade** (cartão "a cada 10 cortes, 1 grátis").

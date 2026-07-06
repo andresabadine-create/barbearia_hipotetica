@@ -1,0 +1,9 @@
+# Artefatos de build e ambiente local — não entram no contexto do Docker.
+target/
+.git/
+.gitignore
+.gitattributes
+.idea/
+*.iml
+HELP.md
+.mvn/wrapper/maven-wrapper.jar

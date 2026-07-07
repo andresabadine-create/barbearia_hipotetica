@@ -27,10 +27,16 @@ Você pode **criar sua própria conta** ou entrar com o administrador de demonst
 | Perfil | E-mail | Senha |
 |---|---|---|
 | Admin | `admin@barbearia.com` | `Barbearia@Admin2026` |
+| Cliente (demo) | `cliente.demo@barbearia.com` | `Cliente@Demo2026` |
 
 > **Primeiro acesso pode levar ~30–50s.** O backend roda em _free tier_ e hiberna
 > quando fica ocioso; a primeira requisição o "acorda". As seguintes são
 > instantâneas.
+
+> **Ambiente de demonstração.** Os dados são reiniciados automaticamente a cada
+> 6 horas e recarregados com um conjunto de exemplo — então visitas anteriores
+> não poluem a sua. Um aviso no topo da aplicação lembra disso; se algo que você
+> criou sumir, foi só a limpeza periódica.
 
 ---
 
@@ -121,6 +127,10 @@ Decisões que pratiquei conscientemente ao construir o projeto:
   vêm de variáveis de ambiente; nenhum segredo no código.
 - **Pronto para conteinerização** — `Dockerfile` _multi-stage_ (build com Maven,
   imagem final só com JRE).
+- **Resiliência do ambiente de demonstração** — _rate limiting_ por IP (token
+  bucket em memória, mais rígido em `/api/auth/**`) protege a API de abuso, e um
+  job agendado reinicia e re-semeia os dados a cada 6h, mantendo a demo limpa e
+  apresentável entre visitas de recrutadores.
 
 ---
 

@@ -72,6 +72,38 @@
   justify-content: center;
 }
 
+/* Aviso de ambiente de demonstração (reset periódico dos dados). */
+.demo-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.6rem 1.5rem;
+  background: #fff8e1;
+  color: #7a5900;
+  border-bottom: 1px solid #f2e2b3;
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.demo-banner-text {
+  flex: 1;
+}
+
+.demo-banner-close {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: #7a5900;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.25rem;
+}
+
+.demo-banner-close:hover {
+  color: #4d3800;
+}
+
 @media (max-width: 600px) {
   .topbar-link {
     font-size: 0.9rem;

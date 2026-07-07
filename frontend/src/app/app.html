@@ -36,6 +36,22 @@
   }
 </header>
 
+@if (!bannerDismissed()) {
+  <div class="demo-banner" role="status">
+    <span class="demo-banner-text">
+      <strong>Ambiente de demonstração.</strong>
+      Os dados são reiniciados automaticamente a cada 6&nbsp;horas e recarregados
+      com um exemplo. Se algo que você criou desaparecer, foi apenas a limpeza
+      periódica — sinta-se à vontade para recriar.
+    </span>
+    <button
+      type="button"
+      class="demo-banner-close"
+      (click)="dismissBanner()"
+      aria-label="Fechar aviso">×</button>
+  </div>
+}
+
 <main class="container">
   <router-outlet />
 </main>

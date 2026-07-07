@@ -34,3 +34,16 @@ app:
     # Origens permitidas (CORS), separadas por vírgula. Em produção defina
     # CORS_ORIGINS com a URL do frontend na Vercel (ex.: https://barbearia.vercel.app).
     allowed-origins: ${CORS_ORIGINS:http://localhost:4200}
+
+  # Rate limiting por IP (token bucket em memória). Valores em requisições/minuto.
+  rate-limit:
+    enabled: ${RATE_LIMIT_ENABLED:true}
+    capacity: ${RATE_LIMIT_CAPACITY:120}          # limite geral por IP
+    auth-capacity: ${RATE_LIMIT_AUTH_CAPACITY:10} # limite em /api/auth/** (anti brute-force)
+
+  # Ambiente de demonstração: limpeza + re-seed periódicos para não acumular visitas.
+  demo:
+    reset:
+      enabled: ${DEMO_RESET_ENABLED:true}
+      cron: ${DEMO_RESET_CRON:0 0 */6 * * *}       # a cada 6 horas
+      zone: ${DEMO_RESET_ZONE:America/Sao_Paulo}

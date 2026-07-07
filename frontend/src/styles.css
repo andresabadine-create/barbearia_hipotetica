@@ -594,3 +594,123 @@ textarea:focus {
   background: #ede9fe;
   color: #5b21b6;
 }
+
+/* ---------- Login / demonstração ---------- */
+.demo-login {
+  max-width: 440px;
+}
+
+.demo-hero {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.demo-badge {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: #ede9fe;
+  color: #5b21b6;
+  margin-bottom: 0.6rem;
+}
+
+.demo-hero h1 {
+  margin: 0 0 0.35rem;
+}
+
+.demo-btn {
+  width: 100%;
+  margin-top: 0;
+  font-size: 1.02rem;
+  padding: 0.8rem 1.1rem;
+}
+
+.demo-note {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin: 0.5rem 0 0;
+}
+
+.demo-hint {
+  text-align: center;
+  font-size: 0.82rem;
+  margin: 0.75rem 0 0;
+}
+
+.demo-explore {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.demo-explore li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.demo-explore .ico {
+  flex-shrink: 0;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.demo-explore strong {
+  font-weight: 700;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.5rem 0 0.25rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+form .btn-block {
+  margin-top: 0.75rem;
+}
+
+.signup-line {
+  text-align: center;
+  margin-top: 1.25rem;
+}
+
+.spinner {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

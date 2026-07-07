@@ -1,6 +1,56 @@
-<section class="card auth-card">
-  <h1>Entrar</h1>
-  <p class="muted">Acesse sua conta para gerenciar seus agendamentos.</p>
+<section class="card auth-card demo-login">
+  <div class="demo-hero">
+    <span class="demo-badge">Demonstração</span>
+    <h1>Explore o projeto</h1>
+    <p class="muted">
+      Entre com um clique e navegue por todas as funcionalidades — sem precisar
+      criar conta.
+    </p>
+  </div>
+
+  <button
+    type="button"
+    class="btn primary demo-btn"
+    (click)="demoLogin()"
+    [disabled]="demoLoading() || loading()">
+    @if (demoLoading()) {
+      <span class="spinner" aria-hidden="true"></span> Acessando…
+    } @else {
+      🚀 Acessar demonstração
+    }
+  </button>
+  <p class="demo-note">Acesso completo como administrador.</p>
+
+  @if (error()) {
+    <p class="alert" role="alert">{{ error() }}</p>
+  }
+  @if (demoLoading()) {
+    <p class="demo-hint muted">
+      O backend roda em plano gratuito e pode levar ~30–50s para “acordar” no
+      primeiro acesso.
+    </p>
+  }
+
+  <ul class="demo-explore">
+    <li>
+      <span class="ico" aria-hidden="true">📅</span>
+      <span><strong>Agendamentos</strong> — criar, listar e cancelar horários</span>
+    </li>
+    <li>
+      <span class="ico" aria-hidden="true">🎁</span>
+      <span><strong>Cartão fidelidade</strong> — a cada 10 cortes, 1 grátis</span>
+    </li>
+    <li>
+      <span class="ico" aria-hidden="true">🔔</span>
+      <span><strong>Notificações</strong> — avisos in-app com contador</span>
+    </li>
+    <li>
+      <span class="ico" aria-hidden="true">🛠️</span>
+      <span><strong>Painel administrativo</strong> — gestão de clientes e atendimentos</span>
+    </li>
+  </ul>
+
+  <div class="divider"><span>ou entre manualmente</span></div>
 
   <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
     <label>
@@ -19,16 +69,12 @@
       <small class="field-error">Informe sua senha.</small>
     }
 
-    @if (error()) {
-      <p class="alert" role="alert">{{ error() }}</p>
-    }
-
-    <button type="submit" class="btn primary" [disabled]="loading()">
+    <button type="submit" class="btn ghost btn-block" [disabled]="loading() || demoLoading()">
       {{ loading() ? 'Entrando…' : 'Entrar' }}
     </button>
   </form>
 
-  <p class="muted">
+  <p class="muted signup-line">
     Ainda não tem conta? <a routerLink="/register">Cadastre-se</a>
   </p>
 </section>

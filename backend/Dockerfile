@@ -21,4 +21,6 @@ COPY --from=build /app/target/*.jar app.jar
 # O Render injeta a porta via variável de ambiente PORT; a aplicação a lê em
 # server.port (application.yml). 8081 é só o default local documentado.
 EXPOSE 8081
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# MaxRAMPercentage limita o heap ao container do free tier (512 MB) e evita
+# OOM-kill no startup, já que o Render não passa -Xmx.
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75", "-jar", "app.jar"]

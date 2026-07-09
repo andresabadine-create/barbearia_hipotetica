@@ -3,28 +3,44 @@
     <span class="demo-badge">Demonstração</span>
     <h1>Explore o projeto</h1>
     <p class="muted">
-      Entre com um clique e navegue por todas as funcionalidades — sem precisar
-      criar conta.
+      Entre com um clique — como cliente ou como administrador — e navegue por
+      todas as funcionalidades, sem precisar criar conta.
     </p>
   </div>
 
-  <button
-    type="button"
-    class="btn primary demo-btn"
-    (click)="demoLogin()"
-    [disabled]="demoLoading() || loading()">
-    @if (demoLoading()) {
-      <span class="spinner" aria-hidden="true"></span> Acessando…
-    } @else {
-      🚀 Acessar demonstração
-    }
-  </button>
-  <p class="demo-note">Acesso completo como administrador.</p>
+  <div class="demo-actions">
+    <button
+      type="button"
+      class="btn primary demo-btn"
+      (click)="demoLogin('cliente')"
+      [disabled]="demoLoading() !== null || loading()">
+      @if (demoLoading() === 'cliente') {
+        <span class="spinner" aria-hidden="true"></span> Acessando…
+      } @else {
+        🚀 Entrar como cliente
+      }
+    </button>
+    <button
+      type="button"
+      class="btn ghost demo-btn"
+      (click)="demoLogin('admin')"
+      [disabled]="demoLoading() !== null || loading()">
+      @if (demoLoading() === 'admin') {
+        <span class="spinner" aria-hidden="true"></span> Acessando…
+      } @else {
+        🛠️ Entrar como admin
+      }
+    </button>
+  </div>
+  <p class="demo-note">
+    <strong>Cliente</strong> — cartão fidelidade, agendamentos e notificações.
+    <strong>Admin</strong> — painel de gestão de atendimentos e cadastros.
+  </p>
 
   @if (error()) {
     <p class="alert" role="alert">{{ error() }}</p>
   }
-  @if (demoLoading()) {
+  @if (demoLoading() !== null) {
     <p class="demo-hint muted">
       O backend roda em plano gratuito e pode levar ~30–50s para “acordar” no
       primeiro acesso.
@@ -69,7 +85,7 @@
       <small class="field-error">Informe sua senha.</small>
     }
 
-    <button type="submit" class="btn ghost btn-block" [disabled]="loading() || demoLoading()">
+    <button type="submit" class="btn ghost btn-block" [disabled]="loading() || demoLoading() !== null">
       {{ loading() ? 'Entrando…' : 'Entrar' }}
     </button>
   </form>

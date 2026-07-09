@@ -622,6 +622,12 @@ textarea:focus {
   margin: 0 0 0.35rem;
 }
 
+.demo-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
 .demo-btn {
   width: 100%;
   margin-top: 0;

@@ -6,9 +6,18 @@ import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../../core/auth';
 import { apiErrorMessage } from '../../../core/http-error';
 
-/** Conta de demonstração (admin) — também documentada no README. */
-const DEMO_EMAIL = 'admin@barbearia.com';
-const DEMO_SENHA = 'Barbearia@Admin2026';
+/** Perfil de demonstração acessível em um clique. */
+type DemoProfile = 'cliente' | 'admin';
+
+/**
+ * Contas de demonstração (também documentadas no README).
+ * - cliente: dados semeados (cartão fidelidade, agendamentos, notificações).
+ * - admin:   painel de gestão (confirmar atendimentos, avisos, cadastros).
+ */
+const DEMO_CREDENTIALS: Record<DemoProfile, { email: string; senha: string }> = {
+  cliente: { email: 'cliente.demo@barbearia.com', senha: 'Cliente@Demo2026' },
+  admin: { email: 'admin@barbearia.com', senha: 'Barbearia@Admin2026' }
+};
 
 @Component({
   selector: 'app-login',
@@ -21,7 +30,8 @@ export class Login {
   private readonly router = inject(Router);
 
   readonly loading = signal(false);
-  readonly demoLoading = signal(false);
+  /** Perfil de demonstração cujo login está em andamento (ou null). */
+  readonly demoLoading = signal<DemoProfile | null>(null);
   readonly error = signal<string | null>(null);
 
   readonly form = this.fb.nonNullable.group({
@@ -29,15 +39,16 @@ export class Login {
     senha: ['', [Validators.required]]
   });
 
-  /** Acesso em um clique com a conta de demonstração (papel ADMIN: enxerga tudo). */
-  demoLogin(): void {
-    if (this.demoLoading() || this.loading()) {
+  /** Acesso em um clique com a conta de demonstração do perfil escolhido. */
+  demoLogin(perfil: DemoProfile): void {
+    if (this.demoLoading() !== null || this.loading()) {
       return;
     }
-    this.demoLoading.set(true);
+    this.demoLoading.set(perfil);
     this.error.set(null);
 
-    this.auth.login(DEMO_EMAIL, DEMO_SENHA).subscribe({
+    const { email, senha } = DEMO_CREDENTIALS[perfil];
+    this.auth.login(email, senha).subscribe({
       next: () => this.router.navigate(['/appointments']),
       error: (err: HttpErrorResponse) => {
         this.error.set(
@@ -46,7 +57,7 @@ export class Login {
             'Não foi possível acessar a demonstração. O servidor gratuito pode estar iniciando — aguarde alguns segundos e tente de novo.'
           )
         );
-        this.demoLoading.set(false);
+        this.demoLoading.set(null);
       }
     });
   }

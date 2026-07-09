@@ -3,8 +3,8 @@
     <span class="demo-badge">Demonstração</span>
     <h1>Explore o projeto</h1>
     <p class="muted">
-      Entre com um clique — como cliente ou como administrador — e navegue por
-      todas as funcionalidades, sem precisar criar conta.
+      Entre com um clique, como cliente ou como administrador, e navegue por
+      todas as funcionalidades sem precisar criar conta.
     </p>
   </div>
 
@@ -17,7 +17,7 @@
       @if (demoLoading() === 'cliente') {
         <span class="spinner" aria-hidden="true"></span> Acessando…
       } @else {
-        🚀 Entrar como cliente
+        💇 Entrar como cliente
       }
     </button>
     <button
@@ -28,13 +28,13 @@
       @if (demoLoading() === 'admin') {
         <span class="spinner" aria-hidden="true"></span> Acessando…
       } @else {
-        🛠️ Entrar como admin
+        🧑‍💼 Entrar como admin
       }
     </button>
   </div>
   <p class="demo-note">
-    <strong>Cliente</strong> — cartão fidelidade, agendamentos e notificações.
-    <strong>Admin</strong> — painel de gestão de atendimentos e cadastros.
+    <strong>Cliente:</strong> cartão fidelidade, agendamentos e notificações.
+    <strong>Admin:</strong> painel de gestão de atendimentos e cadastros.
   </p>
 
   @if (error()) {
@@ -50,19 +50,19 @@
   <ul class="demo-explore">
     <li>
       <span class="ico" aria-hidden="true">📅</span>
-      <span><strong>Agendamentos</strong> — criar, listar e cancelar horários</span>
+      <span><strong>Agendamentos:</strong> criar, listar e cancelar horários</span>
     </li>
     <li>
       <span class="ico" aria-hidden="true">🎁</span>
-      <span><strong>Cartão fidelidade</strong> — a cada 10 cortes, 1 grátis</span>
+      <span><strong>Cartão fidelidade:</strong> a cada 10 cortes, 1 grátis</span>
     </li>
     <li>
       <span class="ico" aria-hidden="true">🔔</span>
-      <span><strong>Notificações</strong> — avisos in-app com contador</span>
+      <span><strong>Notificações:</strong> avisos in-app com contador</span>
     </li>
     <li>
       <span class="ico" aria-hidden="true">🛠️</span>
-      <span><strong>Painel administrativo</strong> — gestão de clientes e atendimentos</span>
+      <span><strong>Painel administrativo:</strong> gestão de clientes e atendimentos</span>
     </li>
   </ul>
 

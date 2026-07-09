@@ -54,7 +54,7 @@ export class Login {
         this.error.set(
           apiErrorMessage(
             err,
-            'Não foi possível acessar a demonstração. O servidor gratuito pode estar iniciando — aguarde alguns segundos e tente de novo.'
+            'Não foi possível acessar a demonstração. O servidor gratuito pode estar iniciando. Aguarde alguns segundos e tente de novo.'
           )
         );
         this.demoLoading.set(null);

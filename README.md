@@ -20,7 +20,7 @@ seus agendamentos em uma barbearia. Inclui **plano de fidelidade**,
 
 ## Demo ao vivo
 
-**[barbearia-hipotetica.vercel.app](https://barbearia-hipotetica.vercel.app)**
+**[barbearia-hipotetica.vercel.app]((https://barbearia-hipotetica.vercel.app/login))**
 
 Você pode **criar sua própria conta** ou entrar com o administrador de demonstração:
 
